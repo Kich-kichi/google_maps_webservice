@@ -162,11 +162,8 @@ class GoogleMapsDirections extends GoogleWebService {
     params['destination'] = destination.toString();
 
     if (departureTime != null) {
-      if (departureTime is! DateTime &&
-          departureTime is! num &&
-          departureTime != 'now') {
-        throw ArgumentError(
-            "'departureTime' must be a '$num' or a '$DateTime'");
+      if (departureTime is! DateTime && departureTime is! num && departureTime != 'now') {
+        throw ArgumentError("'departureTime' must be a '$num' or a '$DateTime'");
       }
 
       params['departure_time'] = departureTime is DateTime
@@ -230,13 +227,11 @@ class GoogleMapsDirections extends GoogleWebService {
     }
 
     if (transitMode.isNotEmpty) {
-      params['transit_mode'] =
-          transitMode.map((t) => t.toApiString()).join('|');
+      params['transit_mode'] = transitMode.map((t) => t.toApiString()).join('|');
     }
 
     if (transitRoutingPreference != null) {
-      params['transit_routing_preference'] =
-          transitRoutingPreference.toApiString();
+      params['transit_routing_preference'] = transitRoutingPreference.toApiString();
     }
 
     if (apiKey != null) {
@@ -246,8 +241,7 @@ class GoogleMapsDirections extends GoogleWebService {
     return url.replace(queryParameters: params).toString();
   }
 
-  DirectionsResponse _decode(Response res) =>
-      DirectionsResponse.fromJson(json.decode(res.body));
+  DirectionsResponse _decode(Response res) => DirectionsResponse.fromJson(json.decode(res.body));
 }
 
 @JsonSerializable()
@@ -279,31 +273,29 @@ class Waypoint {
 
   static Waypoint fromAddress(String address) => Waypoint(value: address);
 
-  static Waypoint fromLocation(Location location) =>
-      Waypoint(value: location.toString());
+  static Waypoint fromLocation(Location location) => Waypoint(value: location.toString());
 
-  static Waypoint fromPlaceId(String placeId) =>
-      Waypoint(value: 'place_id:$placeId');
+  static Waypoint fromPlaceId(String placeId) => Waypoint(value: 'place_id:$placeId');
 
-  static Waypoint fromEncodedPolyline(String polyline) =>
-      Waypoint(value: 'enc:$polyline:');
+  static Waypoint fromEncodedPolyline(String polyline) => Waypoint(value: 'enc:$polyline:');
 
   static Waypoint optimize() => Waypoint(value: 'optimize:true');
 
   @override
   String toString() => value;
 
-  factory Waypoint.fromJson(Map<String, dynamic> json) =>
-      _$WaypointFromJson(json);
+  factory Waypoint.fromJson(Map<String, dynamic> json) => _$WaypointFromJson(json);
   Map<String, dynamic> toJson() => _$WaypointToJson(this);
 }
 
 @JsonSerializable()
 class GeocodedWaypoint {
   /// JSON geocoder_status
+  @JsonKey(defaultValue: '')
   final String geocoderStatus;
 
   /// JSON place_id
+  @JsonKey(defaultValue: '')
   final String placeId;
 
   @JsonKey(defaultValue: <String>[])
@@ -320,8 +312,7 @@ class GeocodedWaypoint {
     this.partialMatch = false,
   });
 
-  factory GeocodedWaypoint.fromJson(Map<String, dynamic> json) =>
-      _$GeocodedWaypointFromJson(json);
+  factory GeocodedWaypoint.fromJson(Map<String, dynamic> json) => _$GeocodedWaypointFromJson(json);
   Map<String, dynamic> toJson() => _$GeocodedWaypointToJson(this);
 }
 
@@ -463,8 +454,7 @@ class Polyline {
 
   Polyline({required this.points});
 
-  factory Polyline.fromJson(Map<String, dynamic> json) =>
-      _$PolylineFromJson(json);
+  factory Polyline.fromJson(Map<String, dynamic> json) => _$PolylineFromJson(json);
   Map<String, dynamic> toJson() => _$PolylineToJson(this);
 }
 
@@ -535,8 +525,7 @@ class TransitDetails {
     required this.numStops,
   });
 
-  factory TransitDetails.fromJson(Map<String, dynamic> json) =>
-      _$TransitDetailsFromJson(json);
+  factory TransitDetails.fromJson(Map<String, dynamic> json) => _$TransitDetailsFromJson(json);
   Map<String, dynamic> toJson() => _$TransitDetailsToJson(this);
 }
 
@@ -598,8 +587,7 @@ class TransitAgency {
     required this.phone,
   });
 
-  factory TransitAgency.fromJson(Map<String, dynamic> json) =>
-      _$TransitAgencyFromJson(json);
+  factory TransitAgency.fromJson(Map<String, dynamic> json) => _$TransitAgencyFromJson(json);
   Map<String, dynamic> toJson() => _$TransitAgencyToJson(this);
 }
 
@@ -619,8 +607,7 @@ class VehicleType {
     required this.localIcon,
   });
 
-  factory VehicleType.fromJson(Map<String, dynamic> json) =>
-      _$VehicleTypeFromJson(json);
+  factory VehicleType.fromJson(Map<String, dynamic> json) => _$VehicleTypeFromJson(json);
   Map<String, dynamic> toJson() => _$VehicleTypeToJson(this);
 
   bool isType(String type) => type.toLowerCase() == this.type.toLowerCase();
